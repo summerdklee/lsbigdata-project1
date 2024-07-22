@@ -1,0 +1,18 @@
+project:
+  type: website
+
+website:
+  title: "Textbook - test"
+  navbar:
+    left:
+      - href: textbook8.qmd
+        text: Textbook 08
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+

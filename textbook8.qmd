@@ -1,0 +1,95 @@
+---
+title: "Textbook 08"
+jupyter: python3
+---
+
+# 그래프 그리기
+## 산점도
+
+* x축은 `displ`, y축은 `hwy`를 나타낸 산점도 만들기
+```{python}
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+mpg = pd.read_csv('data/mpg.csv')
+
+sns.scatterplot(data = mpg, x = 'displ', y = 'hwy')
+plt.show()
+plt.clf()
+```
+
+* x축 범위를 3~6, y축 범위를 10~30으로 제한해 산점도 업데이트
+```{python}
+sns.scatterplot(data = mpg, x = 'displ', y = 'hwy') \
+   .set(xlim = [3, 6], ylim = [10, 30])
+plt.show()
+plt.clf()
+```
+
+* `drv`별로 표식 색깔 다르게 표현
+```{python}
+sns.scatterplot(data = mpg, x = 'displ', y = 'hwy', hue = 'drv')
+plt.show()
+plt.clf()
+```
+ 
+## 막대 그래프
+
+* 집단별 평균표를 만들고, 막대 그래프 만들기
+```{python}
+df_mpg = mpg.groupby('drv', as_index = False) \
+   .agg(mean_hwy = ('hwy', 'mean'))
+df_mpg
+
+sns.barplot(data = df_mpg, x = 'drv', y = 'mean_hwy', hue = 'drv')
+plt.show()
+plt.clf()
+
+```
+
+* 크기 순으로 정렬하여 막대 그래프 업데이트
+```{python}
+df_mpg = df_mpg.sort_values('mean_hwy', ascending = False)
+sns.barplot(data = df_mpg, x = 'drv', y = 'mean_hwy', hue = 'drv')
+plt.show()
+plt.clf()
+```
+
+* 집단별 빈도표를 만들고, 막대 그래프 만들기
+```{python}
+df_mpg = mpg.groupby('drv', as_index = False) \
+            .agg(n = ('drv', 'count'))
+sns.barplot(data = df_mpg, x = 'drv', y = 'n', hue = 'drv')
+plt.show()
+plt.clf()
+```
+
+* `.countplot()`으로 빈도 막대 그래프 만들기
+    - `.barplot()`과의 차이: `countplot()`은 별도로 빈도표를 만드는 작업이 필요하지 않다.
+```{python}
+sns.countplot(data = mpg, x = 'drv', hue = 'drv')
+plt.show()
+plt.clf()
+```
+
+
+# Plotly를 활용한 인터랙티브 그래프 그리기
+## Plotly 산점도
+
+* 산점도 만들기
+```{python}
+import plotly.express as px
+px.scatter(data_frame = mpg, x = 'cty', y = 'hwy', color = 'drv')
+```
+
+## Plotly 막대 그래프
+
+** 자동차 종류별 빈도를 구하고, 막대 그래프 만들기
+```{python}
+df = mpg.groupby('category', as_index = False) \
+        .agg(n = ('category', 'count'))
+
+px.bar(data_frame = df, x = 'category', y = 'n', color = 'category')
+```
+

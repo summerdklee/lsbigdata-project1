@@ -1,0 +1,65 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "testwebsite",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n2"
+  },
+  {
+    "objectID": "quarto-doc.html",
+    "href": "quarto-doc.html",
+    "title": "LS 빅데이터 스쿨 3일차",
+    "section": "",
+    "text": "파이썬 코드 청크는 다음과 같은 단축키를 통해서 넣을 수 있음.\n\n단축키 : Ctrl + Alt + I"
+  },
+  {
+    "objectID": "quarto-doc.html#footnotes",
+    "href": "quarto-doc.html#footnotes",
+    "title": "LS 빅데이터 스쿨 3일차",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\n각주 테스트 설명↩︎\n각주 테스트 설명↩︎\n각주 테스트 설명↩︎"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n2"
+  },
+  {
+    "objectID": "textbook8.html",
+    "href": "textbook8.html",
+    "title": "Textbook 08",
+    "section": "",
+    "text": "x축은 displ, y축은 hwy를 나타낸 산점도 만들기\n\n\nimport pandas as pd\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\nmpg = pd.read_csv('data/mpg.csv')\n\nsns.scatterplot(data = mpg, x = 'displ', y = 'hwy')\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\nx축 범위를 3~6, y축 범위를 10~30으로 제한해 산점도 업데이트\n\n\nsns.scatterplot(data = mpg, x = 'displ', y = 'hwy') \\\n   .set(xlim = [3, 6], ylim = [10, 30])\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\ndrv별로 표식 색깔 다르게 표현\n\n\nsns.scatterplot(data = mpg, x = 'displ', y = 'hwy', hue = 'drv')\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\n\n\n\n집단별 평균표를 만들고, 막대 그래프 만들기\n\n\ndf_mpg = mpg.groupby('drv', as_index = False) \\\n   .agg(mean_hwy = ('hwy', 'mean'))\ndf_mpg\n\nsns.barplot(data = df_mpg, x = 'drv', y = 'mean_hwy', hue = 'drv')\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\n크기 순으로 정렬하여 막대 그래프 업데이트\n\n\ndf_mpg = df_mpg.sort_values('mean_hwy', ascending = False)\nsns.barplot(data = df_mpg, x = 'drv', y = 'mean_hwy', hue = 'drv')\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\n집단별 빈도표를 만들고, 막대 그래프 만들기\n\n\ndf_mpg = mpg.groupby('drv', as_index = False) \\\n            .agg(n = ('drv', 'count'))\nsns.barplot(data = df_mpg, x = 'drv', y = 'n', hue = 'drv')\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\n.countplot()으로 빈도 막대 그래프 만들기\n\n.barplot()과의 차이: countplot()은 별도로 빈도표를 만드는 작업이 필요하지 않다.\n\n\n\nsns.countplot(data = mpg, x = 'drv', hue = 'drv')\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;"
+  },
+  {
+    "objectID": "textbook8.html#산점도",
+    "href": "textbook8.html#산점도",
+    "title": "Textbook 08",
+    "section": "",
+    "text": "x축은 displ, y축은 hwy를 나타낸 산점도 만들기\n\n\nimport pandas as pd\nimport seaborn as sns\nimport matplotlib.pyplot as plt\n\nmpg = pd.read_csv('data/mpg.csv')\n\nsns.scatterplot(data = mpg, x = 'displ', y = 'hwy')\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\nx축 범위를 3~6, y축 범위를 10~30으로 제한해 산점도 업데이트\n\n\nsns.scatterplot(data = mpg, x = 'displ', y = 'hwy') \\\n   .set(xlim = [3, 6], ylim = [10, 30])\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\ndrv별로 표식 색깔 다르게 표현\n\n\nsns.scatterplot(data = mpg, x = 'displ', y = 'hwy', hue = 'drv')\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;"
+  },
+  {
+    "objectID": "textbook8.html#막대-그래프",
+    "href": "textbook8.html#막대-그래프",
+    "title": "Textbook 08",
+    "section": "",
+    "text": "집단별 평균표를 만들고, 막대 그래프 만들기\n\n\ndf_mpg = mpg.groupby('drv', as_index = False) \\\n   .agg(mean_hwy = ('hwy', 'mean'))\ndf_mpg\n\nsns.barplot(data = df_mpg, x = 'drv', y = 'mean_hwy', hue = 'drv')\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\n크기 순으로 정렬하여 막대 그래프 업데이트\n\n\ndf_mpg = df_mpg.sort_values('mean_hwy', ascending = False)\nsns.barplot(data = df_mpg, x = 'drv', y = 'mean_hwy', hue = 'drv')\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\n집단별 빈도표를 만들고, 막대 그래프 만들기\n\n\ndf_mpg = mpg.groupby('drv', as_index = False) \\\n            .agg(n = ('drv', 'count'))\nsns.barplot(data = df_mpg, x = 'drv', y = 'n', hue = 'drv')\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;\n\n\n\n.countplot()으로 빈도 막대 그래프 만들기\n\n.barplot()과의 차이: countplot()은 별도로 빈도표를 만드는 작업이 필요하지 않다.\n\n\n\nsns.countplot(data = mpg, x = 'drv', hue = 'drv')\nplt.show()\nplt.clf()\n\n\n\n\n\n\n\n\n&lt;Figure size 672x480 with 0 Axes&gt;"
+  },
+  {
+    "objectID": "textbook8.html#plotly-산점도",
+    "href": "textbook8.html#plotly-산점도",
+    "title": "Textbook 08",
+    "section": "Plotly 산점도",
+    "text": "Plotly 산점도\n\n산점도 만들기\n\n\nimport plotly.express as px\npx.scatter(data_frame = mpg, x = 'cty', y = 'hwy', color = 'drv')"
+  },
+  {
+    "objectID": "textbook8.html#plotly-막대-그래프",
+    "href": "textbook8.html#plotly-막대-그래프",
+    "title": "Textbook 08",
+    "section": "Plotly 막대 그래프",
+    "text": "Plotly 막대 그래프\n** 자동차 종류별 빈도를 구하고, 막대 그래프 만들기\n\ndf = mpg.groupby('category', as_index = False) \\\n        .agg(n = ('category', 'count'))\n\npx.bar(data_frame = df, x = 'category', y = 'n', color = 'category')"
+  }
+]
