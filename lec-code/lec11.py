@@ -31,3 +31,24 @@ Exx = sum((y ** 2) * pro_y) # E[X^2]
 
 Exx - (Ex ** 2) # Var(X)
 sum((y - Ex) ** 2 * pro_y) # Var(X)
+
+## 예제2
+x = np.arange(99)
+
+# 1~50, 50~1 벡터 생성
+x_1_50_1 = np.concatenate((np.arange(1, 51), np.arange(49, 0, -1)))
+pro_x = x_1_50_1 / 2500
+
+Ex = sum(x * pro_x) # (E[X]^2)
+Exx = sum((x ** 2) * pro_x) # E[X^2]
+
+Exx - (Ex ** 2) # Var(X)
+
+## 예제3
+y = np.arange(0, 7, 2) # np.arange(4) * 2
+pro_y = np.array([1/6, 2/6, 2/6, 1/6])
+
+Ex = sum(y * pro_y) # (E[Y]^2)
+Exx = sum((y ** 2) * pro_y) # E[Y^2]
+
+Exx - (Ex ** 2) # Var(Y)
