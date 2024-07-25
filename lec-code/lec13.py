@@ -202,3 +202,13 @@ sum((x > 3) & (x < 5)) / 1000
 # 평균 : 0, 표준편차 : 1
 x = norm.rvs(loc = 0, scale = 1, size = 1000)
 sum(x < 0) / 1000 # np.mean(x < 0)
+
+x = norm.rvs(loc = 3, scale = 2, size = 1000)
+sns.histplot(x, stat = 'density')
+
+xmin, xmax = (x.min(), x.max())
+x_values = np.linspace(xmin, xmax, 100)
+pdf_values = norm.pdf(x_values, loc = 3, scale = 2)
+plt.plot(x_values, pdf_values, color = 'red')
+plt.show()
+plt.clf()
