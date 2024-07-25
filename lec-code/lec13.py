@@ -102,7 +102,7 @@ plt.clf()
 
 
 # cdf 함수: cumulative dist. function (누적확률분포 함수)
-#$F_X(x) = P(X <= x)
+# F_X(x) = P(X <= x)
 binom.cdf(4, n = 30, p = 0.26)
 
 a = binom.cdf(18, n = 30, p = 0.26)
@@ -146,6 +146,7 @@ binom.cdf(8, n = 30, p = 0.26)
 from scipy.stats import norm
 
 norm.pdf(0, loc = 0, scale = 1)
+norm.pdf(1, loc = 0, scale = 1)
 norm.pdf(5, loc = 3, scale = 4)
 
 # 정규분포 pdf 그리기
