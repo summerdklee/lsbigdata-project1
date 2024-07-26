@@ -48,8 +48,7 @@ uniform.expect(loc = 2, scale = 4) # 모집단 기대값(검은 벽돌)
 
 xmin, xmax = (blue_x.min(), blue_x.max())
 x_values = np.linspace(xmin, xmax, 100)
-pdf_values = norm.pdf(x_values, loc = 4, scale = np.sqrt(1.333333/20))
-plt.plot(x_values, pdf_values, color = 'red')
+pdf_values = norm.pdf(x_vsalues, color = 'red')
 plt.show()
 plt.clf()
 
