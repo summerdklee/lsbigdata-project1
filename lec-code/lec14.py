@@ -12,7 +12,7 @@ import seaborn as sns
 ## X ~ U(2, 6)
 uniform.rvs(loc = 2, scale = 4, size = 1)
 
-k = np.linspace(0, 8, 100)
+  = np.linspace(0, 8, 100)
 x = uniform.pdf(k, loc = 2, scale = 4) # 균일분포 그래프의 높이
 
 plt.plot(k, x, color = 'black')
