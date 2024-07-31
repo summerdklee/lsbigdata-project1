@@ -145,8 +145,7 @@ plt.show()
 plt.clf()
 
 # 나이 0~9, 10~19, 20~29, 30~39 ... 로 나눠서
-bin_cut = np.arange(0, 120, 9)
-?numpy.arange
+bin_cut = np.array([0, 9, 19, 29, 39, 49, 59, 69, 79, 89, 99, 109, 119])
 pd.cut(welfare['age'], bin_cut)
 
 welfare = welfare.assign(age_group = pd.cut(welfare['age'], bin_cut,
@@ -170,3 +169,59 @@ sns.barplot(data = sex_age_income, x = 'age_group', y = 'mean_income', hue = 'se
 plt.show()
 plt.clf()
 
+# ==============================================================================
+
+# 9-6장
+welfare['code_job']
+welfare['code_job'].value_counts()
+
+list_job = pd.read_excel('data/Koweps_Codebook_2019.xlsx', sheet_name = '직종코드')
+list_job.head()
+list_job.shape
+
+welfare = welfare.merge(list_job, how = 'left', on = 'code_job')
+welfare.head()
+
+welfare.dropna(subset = ['job', 'income'])[['income', 'job']]
+
+job_income = welfare.dropna(subset = ['job', 'income']) \
+                    .groupby('job', as_index = False) \
+                    .agg(mean_income = ('income', 'mean'))
+job_income.head()
+
+plt.rcParams.update({'font.family' : 'Malgun Gothic'})
+
+top10 = job_income.sort_values('mean_income', ascending = False).head(10)
+sns.barplot(data = top10, y = 'job', x = 'mean_income', hue = 'job')
+plt.show()
+plt.clf()
+
+bottom10 = job_income.sort_values('mean_income', ascending = True).head(10)
+sns.barplot(data = bottom10, y = 'job', x = 'mean_income', hue = 'job').set(xlim = [0, 800])
+plt.show()
+plr.clf()
+
+# 9-7장
+job_male = welfare.dropna(subset = 'job') \
+                  .query('sex == "male"') \
+                  .groupby('job', as_index = False) \
+                  .agg(n = ('job', 'count')) \
+                  .sort_values('n', ascending = False) \
+                  .head(10)
+
+job_female = welfare.dropna(subset = 'job') \
+                    .query('sex == "female"') \
+                    .groupby('job', as_index = False) \
+                    .agg(n = ('job', 'count')) \
+                    .sort_values('n', ascending = False) \
+                    .head(10)
+
+# 9-8장
+rel_div = welfare.query('marriage_type != 5') \
+                 .groupby('religion', as_index = False) \
+                 ['marriage_type'] \
+                 .value_counts(normalize = True) # 핵심!! value_counts()에서 normalize = True를 쓰면 비율을 구해준다
+
+rel_div = rel_div.query('marriage_type == 1') \
+                 .assign(proportion = rel_div['proportion'] * 100) \
+                 .round(1)

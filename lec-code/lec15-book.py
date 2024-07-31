@@ -1,5 +1,8 @@
 import pandas as pd
 import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+
 
 economics = pd.read_csv('data/economics.csv')
 economics.head()
@@ -31,7 +34,7 @@ economics['date2'] + pd.DateOffset(months = 1)
 economics['year'] = economics['date2'].dt.year
 sns.lineplot(data = economics, x = 'year', y = 'unemploy', errorbar = None)
 plt.show()
-plt.clf()
+
 
 my_df = economics.groupby('year', as_index = False) \
                  .agg(mon_mean = ('unemploy', 'mean'),
