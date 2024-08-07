@@ -55,18 +55,18 @@ print(model.summary())
 ## 대립가설: 2022년 슬통 자동차 실형 모델의 평균 복합 에너지 소비효율이 16.0 이상이 아니다.
 
 # 2. t = (x_bar - mu0) / s/root_n 계산
-new_car = [15.078, 15.752, 15.549, 15.56, 16.098, 13.277, 15.462, 16.116, 15.214, 16.93, 14.118, 14.927,
-15.382, 16.709, 16.804]
+new_car = np.array([15.078, 15.752, 15.549, 15.56, 16.098, 13.277, 15.462, 16.116, 15.214, 16.93, 14.118, 14.927,
+15.382, 16.709, 16.804])
 
 x_bar = new_car.mean()
 mu0 = 16
-sig = np.var(new_car, ddof = 1)
+sig = np.std(new_car, ddof = 1)
 n = len(new_car)
 
-t = (x_bar - mu0) / np.sqrt(sig / n)
+t_value = (x_bar - mu0) / std / np.sqrt(n)
 
 # 3. 주어진 t로 유의확률 계산(t분포 n-1 활용)
-p = norm.cdf(t, loc = mu0, scale = np.sqrt(sig))
+p_value = t.cdf(t_value, df = 14)
 
 # 4. 유의수준과 비교해서 귀무가설 기각할지 결정
-t.cdf(t, df = n - 1)
+
