@@ -1,0 +1,133 @@
+---
+title: "No.1 공인중개사"
+author: "홍대병 말기"
+format: dashboard
+theme: quartz
+dashboard:
+  nav-buttons:
+    - icon: github
+      href: https://github.com/sy-source/lsbigdata-project1/
+  scrolling: true
+logo: "hongdae.png"
+---
+
+# 분석 목적 및 데이터 설명
+
+## Sidebar {.sidebar}
+
+### 홍대병 말기
+
+- **조원**
+  - 윤대웅, 이다경, 장일준, 정은서
+- **한 마디**
+  - 우린 멋져
+
+### 내용
+
+- **주제**
+  - Ames 내 동네 선정 후 조건에 맞는 집 추천
+- **데이터**
+  - [Kaggle](https://docs.google.com/spreadsheets/d/1KJsmkQ_-6enmgCX6T1ZRNj6a_ep0OlNkr5T0y1JnB-E/edit?usp=sharing)
+  - [School and Hospital](https://docs.google.com/spreadsheets/d/1KJsmkQ_-6enmgCX6T1ZRNj6a_ep0OlNkr5T0y1JnB-E/edit?usp=sharing)
+
+
+## Row
+
+### title
+
+![](page0.jpg){width=100% style="display: block; margin: auto;"}
+
+# Ames 지역 동네 분석
+
+## Row {height=30%}
+
+```{python}
+#| component: valuebox
+#| title: Neighborhood
+dict(
+    icon = "geo-alt",
+    color = "primary",
+    value = 28
+)
+```
+
+```{python}
+#| component: valuebox
+#| title: Hospital
+dict(
+    icon = "capsule",
+    color = "warning",
+    value = 17
+)
+```
+
+```{python}
+#| component: valuebox
+#| title: School
+dict(
+    icon = "mortarboard",
+    color = "info",
+    value = 9
+)
+```
+
+## Row {height=70%}
+
+```{python}
+#| title: Ames 지역의 Neighborhood 별 SalePrice 비교
+from IPython.display import IFrame
+IFrame(src='map_ames_neig.html', width='100%', height='600px')
+```
+
+```{python}
+#| title: Ames 지역의 학교 병원 위치 확인
+from IPython.display import IFrame
+IFrame(src='map_ames_schs.html', width='100%', height='600px')
+```
+
+
+# 동네 선정
+
+```{python}
+#| title: 조건에 맞는 Neighborhood 선정
+from IPython.display import IFrame
+IFrame(src='map_ames_total.html', width='100%', height='600px')
+```
+
+## Row
+
+**초등학교와 병원이 모두 근접한 위치**에 있는 두 개 동네로 선정
+
+- College Creek
+- North Ames
+
+# 집 선정
+
+선택된 동내에서 **좋은 집** 을 찾기 위해서 점수를 주는 과정
+
+## Column {.tabset}
+
+```{python}
+#| title: 지상 생활 면적 (Gr_Liv_Area)
+print("그래프 1")
+```
+
+```{python}
+#| title: 전체적인 상태 등급 (Overall_Cond)
+print("그래프 2")
+```
+
+```{python}
+#| title: 지상 총 침실 수 (Bedroom_AbvGr)
+print("그래프 3")
+```
+
+```{python}
+#| title: 전체 지하실 면적 (Total_Bsmt_SF)
+print("그래프 4")
+```
+
+```{python}
+#| title: 주차장 면적 (Garage_Area)
+print("그래프 5")
+```

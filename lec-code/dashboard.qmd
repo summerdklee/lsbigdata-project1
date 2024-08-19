@@ -1,0 +1,61 @@
+---
+title: "팔머펭귄 대시보드"
+author: "Dakyung Lee"
+format:
+    dashboard:
+        scrolling: True
+        logo: 'usagi.gif'
+        nav-buttons:
+        - icon: github
+          href: https://github.com/summerdklee
+---
+
+# Page 1
+
+**여기는 페이지 1 입니다.**
+
+## Row
+
+```{python}
+import plotly.graph_objects as go
+import plotly.express as px
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from palmerpenguins import load_penguins
+
+penguins = load_penguins()
+
+fig = px.scatter(penguins,
+                 x = 'bill_length_mm',
+                 y = 'bill_depth_mm',
+                 color = 'species',
+                 # trendline = 'ols' 134p
+                 )
+fig.show()
+```
+
+## Row {.tabset}
+
+```{python}
+fig = px.scatter(penguins,
+                 x = 'bill_length_mm',
+                 y = 'bill_depth_mm',
+                 color = 'species',
+                 # trendline = 'ols' 134p
+                 )
+fig.show()
+```
+
+```{python}
+fig = px.scatter(penguins,
+                 x = 'bill_length_mm',
+                 y = 'bill_depth_mm',
+                 color = 'species',
+                 # trendline = 'ols' 134p
+                 )
+fig.show()
+```
+
+# Page 2

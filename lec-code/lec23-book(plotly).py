@@ -7,6 +7,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+import os
+os.chdir('C:/Users/USER/Documents/LS빅데이터스쿨/lsbigdata-project1')
+
 df_covid19_100 = pd.read_csv('data/df_covid19_100.csv')
 df_covid19_100
 df_covid19_100.info()
@@ -99,7 +102,7 @@ layout = {
         "buttons": [{
             "label": "Play",
             "method": "animate",
-            "args": [None, {"frame": {"duration": 500, "redraw": True}, "fromcurrent": True}]
+            "args": [None, {"frame": {"duration": 100, "redraw": True}, "fromcurrent": True}]
         }, {
             "label": "Pause",
             "method": "animate",
