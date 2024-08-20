@@ -227,7 +227,9 @@ grid-auto-rows: minmax(0, 1fr);">
 </div>
 </div>
 <div id="동네-선정" class="dashboard-page tab-pane grid-skip html-fill-item html-fill-container" data-orientation="rows" aria-labelledby="tab-동네-선정">
-<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 1fr) minmax(3em, max-content); grid-auto-columns: minmax(0, 1fr);">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 60fr) minmax(3em, 40fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
+grid-auto-rows: minmax(0, 1fr);">
 <div class="card cell html-fill-item html-fill-container bslib-card" data-title="조건에 맞는 Neighborhood 선정" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-header"><div class="card-title">조건에 맞는 Neighborhood 선정</div></div>
 <div class="card-body html-fill-item html-fill-container">
@@ -243,15 +245,74 @@ grid-auto-rows: minmax(0, 1fr);">
         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
     </span>
 </bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+</div>
 <div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
 grid-auto-rows: minmax(0, 1fr);">
-<div class="card html-fill-item html-fill-container bslib-card" data-fill="false" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card cell html-fill-item html-fill-container bslib-card" data-title="선정한 Neighborhood 및 선정 근거" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
+<div class="card-header"><div class="card-title">선정한 Neighborhood 및 선정 근거</div></div>
 <div class="card-body html-fill-item html-fill-container">
-<p><strong>초등학교와 병원이 모두 근접한 위치</strong>에 있는 두 개 동네로 선정</p>
-<ul>
-<li>College Creek</li>
-<li>North Ames</li>
-</ul>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<table class="dataframe table table-striped table-hover caption-top table-sm small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Rank</th>
+<th data-quarto-table-cell-role="th">Neighborhood</th>
+<th data-quarto-table-cell-role="th">Center Latitude</th>
+<th data-quarto-table-cell-role="th">Center Longitude</th>
+<th data-quarto-table-cell-role="th">Min School Distance (meters)</th>
+<th data-quarto-table-cell-role="th">Min Hospital Distance (meters)</th>
+<th data-quarto-table-cell-role="th">Average Facility Distance (meters)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Northpark_Villa</td>
+<td>42.050382</td>
+<td>-93.625930</td>
+<td>203</td>
+<td>600</td>
+<td>401</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>North_Ames</td>
+<td>42.042354</td>
+<td>-93.617564</td>
+<td>339</td>
+<td>530</td>
+<td>435</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Briardale</td>
+<td>42.052068</td>
+<td>-93.628443</td>
+<td>230</td>
+<td>876</td>
+<td>553</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Edwards</td>
+<td>42.022039</td>
+<td>-93.666655</td>
+<td>1056</td>
+<td>61</td>
+<td>558</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>College_Creek</td>
+<td>42.019277</td>
+<td>-93.686823</td>
+<td>395</td>
+<td>767</td>
+<td>581</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
     <template>Expand</template>
@@ -263,7 +324,7 @@ grid-auto-rows: minmax(0, 1fr);">
 </div>
 </div>
 <div id="집-선정" class="dashboard-page tab-pane grid-skip html-fill-item html-fill-container" data-orientation="rows" aria-labelledby="tab-집-선정">
-<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, max-content) minmax(3em, 1fr); grid-auto-columns: minmax(0, 1fr);">
+<div class="html-fill-item html-fill-container bslib-grid" style="display: grid; grid-template-rows: minmax(3em, max-content) minmax(3em, max-content); grid-auto-columns: minmax(0, 1fr);">
 <div class="card html-fill-item html-fill-container bslib-card" data-fill="false" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
 <p>선택된 동내에서 <strong>좋은 집</strong> 을 찾기 위해서 점수를 주는 과정</p>
@@ -277,36 +338,11 @@ grid-auto-rows: minmax(0, 1fr);">
 <div class="card tabset html-fill-item html-fill-container bslib-card" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-header dashboard-card-no-title bslib-navs-card-title">
 
-<ul class="nav nav-tabs card-header-tabs" role="tablist" data-tabsetid="card-tabset-10"><li class="nav-item" role="presentation"><a href="#card-tabset-10-1" role="tab" data-toggle="tab" data-bs-toggle="tab" data-value="지상 생활 면적 (Gr_Liv_Area)" aria-selected="true" class="nav-link active">지상 생활 면적 (Gr_Liv_Area)</a></li><li class="nav-item" role="presentation"><a href="#card-tabset-10-2" role="tab" data-toggle="tab" data-bs-toggle="tab" data-value="전체적인 상태 등급 (Overall_Cond)" aria-selected="false" class="nav-link">전체적인 상태 등급 (Overall_Cond)</a></li><li class="nav-item" role="presentation"><a href="#card-tabset-10-3" role="tab" data-toggle="tab" data-bs-toggle="tab" data-value="지상 총 침실 수 (Bedroom_AbvGr)" aria-selected="false" class="nav-link">지상 총 침실 수 (Bedroom_AbvGr)</a></li><li class="nav-item" role="presentation"><a href="#card-tabset-10-4" role="tab" data-toggle="tab" data-bs-toggle="tab" data-value="전체 지하실 면적 (Total_Bsmt_SF)" aria-selected="false" class="nav-link">전체 지하실 면적 (Total_Bsmt_SF)</a></li><li class="nav-item" role="presentation"><a href="#card-tabset-10-5" role="tab" data-toggle="tab" data-bs-toggle="tab" data-value="주차장 면적 (Garage_Area)" aria-selected="false" class="nav-link">주차장 면적 (Garage_Area)</a></li></ul></div>
-
-
-
-
-
+<ul class="nav nav-tabs card-header-tabs" role="tablist" data-tabsetid="card-tabset-10"></ul></div>
 <div id="3ade8a4a-fb1d-4a6c-8409-ac45482d5fc9" class="hidden html-fill-item html-fill-container">
 
 </div>
-<div class="tab-content html-fill-item html-fill-container" data-tabset-id="card-tabset-10"><div class="tab-pane active show html-fill-item html-fill-container" role="tabpanel" id="card-tabset-10-1"><div class="card-body html-fill-item html-fill-container" data-title="지상 생활 면적 (Gr_Liv_Area)">
-<div class="cell-output cell-output-stdout html-fill-item html-fill-container">
-<pre><code>그래프 1</code></pre>
-</div>
-</div></div><div class="tab-pane html-fill-item html-fill-container" role="tabpanel" id="card-tabset-10-2"><div class="card-body html-fill-item html-fill-container" data-title="전체적인 상태 등급 (Overall_Cond)">
-<div class="cell-output cell-output-stdout html-fill-item html-fill-container">
-<pre><code>그래프 2</code></pre>
-</div>
-</div></div><div class="tab-pane html-fill-item html-fill-container" role="tabpanel" id="card-tabset-10-3"><div class="card-body html-fill-item html-fill-container" data-title="지상 총 침실 수 (Bedroom_AbvGr)">
-<div class="cell-output cell-output-stdout html-fill-item html-fill-container">
-<pre><code>그래프 3</code></pre>
-</div>
-</div></div><div class="tab-pane html-fill-item html-fill-container" role="tabpanel" id="card-tabset-10-4"><div class="card-body html-fill-item html-fill-container" data-title="전체 지하실 면적 (Total_Bsmt_SF)">
-<div class="cell-output cell-output-stdout html-fill-item html-fill-container">
-<pre><code>그래프 4</code></pre>
-</div>
-</div></div><div class="tab-pane html-fill-item html-fill-container" role="tabpanel" id="card-tabset-10-5"><div class="card-body html-fill-item html-fill-container" data-title="주차장 면적 (Garage_Area)">
-<div class="cell-output cell-output-stdout html-fill-item html-fill-container">
-<pre><code>그래프 5</code></pre>
-</div>
-</div></div></div><bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+<div class="tab-content html-fill-item html-fill-container" data-tabset-id="card-tabset-10"></div><bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
     <template>Expand</template>
     <span class="bslib-full-screen-enter badge rounded-pill">
         <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
