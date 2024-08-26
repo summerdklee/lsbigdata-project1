@@ -1,10 +1,16 @@
 import numpy as np
+import pandas as pd
+from scipy.stats import norm
+from scipy.stats import uniform
 from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import Lasso
 from scipy.optimize import minimize
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 # [벡터 * 벡터 (내적)]
 a = np.arange(1, 4)
-b = np.array([3, 6, 9])
+b = np.array([3, 6, 9]).reshape(3, 1)
 
 a.dot(b)
 
@@ -73,25 +79,25 @@ b = np.array([1, 2, 3, 2, 4, 5, 3, 6, 7]).reshape(3, 3)
 b_inv = np.linalg.inv(b) # singular matrix 에러
 np.linalg.det(b) # 행렬식이 0
 
-# 벡터 형태로 베타 구하기
+# [벡터 형태로 베타 구하기]
 XtX_inv = np.linalg.inv((matX.transpose() @ matX))
 Xty = matX.transpose() @ y
 beta_hat = XtX_inv @ Xty
 
-# model.fit으로 베타 구하기
+# [model.fit으로 베타 구하기]
 model = LinearRegression()
 model.fit(matX[:, 1:], y)
 
 model.coef_
 model.intercept_
 
-# minimize로 베타 구하기
+# [minimize로 베타 구하기]
 def line_perform(beta):
     beta = np.array(beta).reshape(3, 1)
-    a = y - matX @ beta
+    a = y - matX @ beta # matX @ beta : y_hat
     return a.transpose() @ a
 
-line_perform([8.55, 5.96, -4.38])
+# line_perform([8.55, 5.96, -4.38])
 
 initial_guess = [0, 0, 0]
 
@@ -99,14 +105,14 @@ result = minimize(line_perform, initial_guess)
 result.fun # 최소값
 result.x   # 최소값을 갖는 x 값
 
-# minimize로 Lasso 베타 구하기
+# [minimize로 Lasso 베타 구하기]
 def line_perform_lasso(beta):
     beta = np.array(beta).reshape(3, 1)
     a = y - matX @ beta
     return (a.transpose() @ a) + (30 * np.abs(beta[1:]).sum())
 
-line_perform_lasso([8.55, 5.96, -4.38])
-line_perform_lasso([8.14, 0.96, 0])
+# line_perform_lasso([8.55, 5.96, -4.38])
+# line_perform_lasso([8.14, 0.96, 0])
 
 initial_guess = [0, 0, 0]
 
@@ -131,17 +137,67 @@ result.x   # 최소값을 갖는 x 값
 ## 람다를 증가 : 변수가 하나씩 빠지는 효과
 ## valid_X에서 가장 성능이 좋은 람다로 선택 : 변수가 선택됨을 의미한다.
 
-# minimize로 Ridge 베타 구하기
-def line_perform_ridge(beta):
-    beta = np.array(beta).reshape(3, 1)
-    a = y - matX @ beta
-    return (a.transpose() @ a) + (3 * np.abs(beta**2).sum())
+## 20차 모델 성능 확인하기
+np.random.seed(2024)
+x = uniform.rvs(size=30, loc=-4, scale=8)
+y = np.sin(x) + norm.rvs(size=30, loc=0, scale=0.3)
 
-line_perform_ridge([8.55, 5.96, -4.38])
-line_perform_ridge([3.76, 1.36, 0])
+df = pd.DataFrame({
+    "y" : y,
+    "x" : x})
 
-initial_guess = [0, 0, 0]
+train_df = df.loc[:19]
 
-result = minimize(line_perform_ridge, initial_guess)
-result.fun # 최소값
-result.x   # 최소값을 갖는 x 값
+for i in range(2, 21):
+    train_df[f"x{i}"] = train_df["x"] ** i
+    
+### 'x' 열을 포함하여 'x2'부터 'x20'까지 선택.
+train_x = train_df[["x"] + [f"x{i}" for i in range(2, 21)]]
+train_y = train_df["y"]
+
+model = Lasso(alpha=0) # lambda가 alpha로 표현
+model.fit(train_x, train_y)
+
+valid_df = df.loc[20:]
+
+for i in range(2, 21):
+    valid_df[f"x{i}"] = valid_df["x"] ** i
+
+### 'x' 열을 포함하여 'x2'부터 'x20'까지 선택.
+valid_x = valid_df[["x"] + [f"x{i}" for i in range(2, 21)]]
+valid_y = valid_df["y"]
+
+### 모델 성능
+y_hat_train = model.predict(train_x)
+y_hat_val = model.predict(valid_x)
+
+sum((train_df["y"] - y_hat_train)**2)
+sum((valid_df["y"] - y_hat_val)**2)
+
+tr_result = np.repeat(0.0, 100)
+val_result = np.repeat(0.0, 100)
+
+for i in np.arange(0, 100):
+    model = Lasso(alpha=i*0.1)
+    model.fit(train_x, train_y)
+
+    y_hat_train = model.predict(train_x)
+    y_hat_val = model.predict(valid_x)
+
+    perf_train = sum((train_df["y"] - y_hat_train)**2)
+    perf_val = sum((valid_df["y"] - y_hat_val)**2)
+
+    tr_result[i] = perf_train
+    val_result[i] = perf_val
+
+df = pd.DataFrame({
+    'l' : np.arange(0, 10, 0.1),
+    'tr' : tr_result,
+    'val' : val_result
+})
+
+sns.scatterplot(data = df, x = 'l', y = 'tr', color = 'blue')
+sns.scatterplot(data = df, x = 'l', y = 'val', color = 'red')
+plt.xlim(0, 1)
+
+np.min(val_result) # alpha를 0.1로 선택!
