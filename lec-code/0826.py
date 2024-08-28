@@ -155,7 +155,7 @@ for i in range(2, 21):
 train_x = train_df[["x"] + [f"x{i}" for i in range(2, 21)]]
 train_y = train_df["y"]
 
-model = Lasso(alpha=0) # lambda가 alpha로 표현
+model = Lasso(alpha=0.03) # lambda가 alpha로 표현
 model.fit(train_x, train_y)
 
 valid_df = df.loc[20:]
@@ -201,3 +201,16 @@ sns.scatterplot(data = df, x = 'l', y = 'val', color = 'red')
 plt.xlim(0, 1)
 
 np.min(val_result) # alpha를 0.1로 선택!
+
+# [8/27 그래프 그리기]
+model = Lasso(alpha=0.03)
+model.fit(train_x, train_y)
+
+x_pred = np.arange(-4, 4, 0.01)
+x_pred_poly = np.column_stack([x_pred ** i for i in range(1, 21)])  # 상수항 추가하지 않음
+y_pred = model.predict(x_pred_poly)
+
+plt.scatter(valid_df["x"], valid_df["y"], color="blue", label="Validation Data")
+plt.plot(x_pred, y_pred, color="red", label="Lasso Prediction")
+plt.xlabel("x")
+plt.ylabel("y")
