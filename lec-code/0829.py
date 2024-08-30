@@ -120,4 +120,3 @@ for i in range(500):
     plt.scatter(float(x), float(y), color='red', s=10)
 
 print(x, y)
-
