@@ -12,7 +12,7 @@ from statsmodels.stats.proportion import proportions_ztest # 비율
 ## 귀무가설 : 정당 지지와 핸드폰 사용 유무는 독립이다. (관련없다.)
 ## 대립가설 : 정당 지지와 핸드폰 사용 유무는 독립이 아니다.
 
-mat_a = np.array([[49, 47], [15, 27], [32, 30]])|
+mat_a = np.array([[49, 47], [15, 27], [32, 30]])
 
 chi2, p, df, expected = chi2_contingency(mat_a, correction=False)
 chi2.round(3)
